@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const casesRouter = require('./routes/cases');
-const officerRouter = require('./routes/cases');
+const officerRouter = require('./routes/officers');
 
 const app = express();
 // view engine setup
