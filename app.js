@@ -8,7 +8,8 @@ const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const testAPIRouter = require('./routes/testapi');
+const casesRouter = require('./routes/cases');
+const officerRouter = require('./routes/cases');
 
 const app = express();
 // view engine setup
@@ -28,7 +29,8 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/testapi', testAPIRouter);
+app.use('/cases', casesRouter);
+app.use('/officers', officerRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
