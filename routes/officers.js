@@ -2,9 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const mongoose = require('mongoose');
-
-const accounts = [];
-const Officer = require('../models/case');
+const Officer = require('../models/officer');
 
 router.get('/', (req, res, next) => {
   Officer.find()
@@ -18,7 +16,8 @@ router.post('/', (req, res, next) => {
   const posted = new Officer({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    free: false,
+    free: true,
+    case: req.body.case,
   });
   posted.save().then((res) => {
     console.log(res);
@@ -39,8 +38,25 @@ router.patch('/:id', (req, res, next) => {
   const updateOps = {
     name: req.body.name,
     free: req.body.free,
+    case: req.body.case,
   };
   Officer.update({ _id: id }, { $set: updateOps })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        error: err,
+      });
+    });
+});
+router.delete('/:id', (req, res, next) => {
+  console.log(req.body);
+  const { id } = req.params;
+  Officer.remove({ _id: id })
     .exec()
     .then((result) => {
       console.log(result);
